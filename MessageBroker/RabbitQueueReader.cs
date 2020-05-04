@@ -37,7 +37,7 @@ namespace MessageBroker
 
             // Create a consumer for the queue. This is a method implemented by RabbitMQ.Client to easily subscribe to incoming messages on this queue
             var consumer = new EventingBasicConsumer(_channel);
-            
+
             // Add an event handler for receiving messages on the queue
             consumer.Received += (evt, evt2) =>
             {
@@ -55,23 +55,26 @@ namespace MessageBroker
 
             // On the provided queue name, register our consumer as a consumer.
             _channel.BasicConsume(_queueName.Name, false, consumer);
-            
+
             return Task.CompletedTask;
         }
 
         private bool HandleMessage(BasicDeliverEventArgs message)
         {
             // The messages within our solution should have a MessageType header. If not, log and consider this message handled.
-            if(!message.BasicProperties.Headers.TryGetValue("MessageType", out var objValue) || !(objValue is byte[] valueAsBytes) )
+            if (!message.BasicProperties.Headers.TryGetValue("MessageType", out var objValue) ||
+                !(objValue is byte[] valueAsBytes))
             {
                 Console.WriteLine("unknown message");
+
                 //_logger.LogCritical("Received an unknown message in the queue {QueueName}. The message was discarded. Message: {Message}", _queueName.Name, Encoding.UTF8.GetString(message.Body));
                 // Return true, we will never be able to handle a message without MessageType, thus no point in trying.
                 return true;
             }
 
             var messageType = Encoding.UTF8.GetString(valueAsBytes);
-            if(!_messageHandlerRepository.TryGetHandlerForMessageType(messageType, out var implementingHandler))
+
+            if (!_messageHandlerRepository.TryGetHandlerForMessageType(messageType, out var implementingHandler))
             {
                 Console.WriteLine("no handler");
 
@@ -79,11 +82,12 @@ namespace MessageBroker
                 //_logger.LogInformation("Message with message type {MessageType} was skipped because no handler was registered.", messageType);
                 return true;
             }
-            
+
             try
             {
                 // Create a service provider scope. Normally this is done by Asp.NET but this is outside of the asp.net lifecycle. Thus do it ourselves
                 using var scope = _serviceProvider.CreateScope();
+
                 // Retrieve the IMessageHandler from the service provider, using this way we can easily get scoped services like DbContext.
                 var handler = scope.ServiceProvider.GetService(implementingHandler) as IMessageHandler;
                 handler?.HandleMessageAsync(messageType, message.Body).GetAwaiter().GetResult();
@@ -91,7 +95,7 @@ namespace MessageBroker
                 //_logger.LogInformation("Message with message type {MessageType} was successfully handled.", messageType);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
 
@@ -104,6 +108,7 @@ namespace MessageBroker
         {
             _channel?.Dispose();
             _channel = null;
+
             return Task.CompletedTask;
         }
 

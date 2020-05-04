@@ -15,17 +15,15 @@ namespace MessageBroker
 
         private IConnection GetConnection()
         {
-
-            if (_connection == null)
+            if (_connection != null) return _connection;
+            
+            var factory = new ConnectionFactory
             {
-                var factory = new ConnectionFactory
-                {
-                    Uri = new Uri("amqp://guest:5vNo0n3736hBEoFz96NPxmt7M0mUazv@rabbit.feddema.dev:9017"),
-                    AutomaticRecoveryEnabled =
-                        true // When the connection is lost, this will automatically reconnect us when it can get back up
-                };
-                _connection = factory.CreateConnection();
-            }
+                Uri = new Uri("amqp://guest:5vNo0n3736hBEoFz96NPxmt7M0mUazv@rabbit.feddema.dev:9017"),
+                AutomaticRecoveryEnabled =
+                    true // When the connection is lost, this will automatically reconnect us when it can get back up
+            };
+            _connection = factory.CreateConnection();
 
             return _connection;
         }
