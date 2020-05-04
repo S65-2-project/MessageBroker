@@ -65,8 +65,6 @@ namespace MessageBroker
             if (!message.BasicProperties.Headers.TryGetValue("MessageType", out var objValue) ||
                 !(objValue is byte[] valueAsBytes))
             {
-                Console.WriteLine("unknown message");
-
                 // Return true, we will never be able to handle a message without MessageType, thus no point in trying.
                 return true;
             }
@@ -75,8 +73,6 @@ namespace MessageBroker
 
             if (!_messageHandlerRepository.TryGetHandlerForMessageType(messageType, out var implementingHandler))
             {
-                Console.WriteLine("no handler");
-
                 // There is no handler for the given MessageType. This is a valid case, but we log it as information just so the developers know that they are skipping this.
                 return true;
             }
@@ -92,10 +88,8 @@ namespace MessageBroker
 
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine(ex);
-
                 return false;
             }
         }
