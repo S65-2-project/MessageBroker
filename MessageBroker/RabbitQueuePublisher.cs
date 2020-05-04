@@ -26,8 +26,6 @@ namespace MessageBroker
             
             var body = JsonSerializer.SerializeToUtf8Bytes(value);
             
-            Console.WriteLine(body);
-            
             // Publish this without a routing key to the RabbitMQ broker
             channel.BasicPublish("Lisk", routingKey, true,  message, body);
             

@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
 namespace MessageBroker

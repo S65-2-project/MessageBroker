@@ -67,7 +67,6 @@ namespace MessageBroker
             {
                 Console.WriteLine("unknown message");
 
-                //_logger.LogCritical("Received an unknown message in the queue {QueueName}. The message was discarded. Message: {Message}", _queueName.Name, Encoding.UTF8.GetString(message.Body));
                 // Return true, we will never be able to handle a message without MessageType, thus no point in trying.
                 return true;
             }
@@ -79,7 +78,6 @@ namespace MessageBroker
                 Console.WriteLine("no handler");
 
                 // There is no handler for the given MessageType. This is a valid case, but we log it as information just so the developers know that they are skipping this.
-                //_logger.LogInformation("Message with message type {MessageType} was skipped because no handler was registered.", messageType);
                 return true;
             }
 
@@ -92,14 +90,12 @@ namespace MessageBroker
                 var handler = scope.ServiceProvider.GetService(implementingHandler) as IMessageHandler;
                 handler?.HandleMessageAsync(messageType, message.Body).GetAwaiter().GetResult();
 
-                //_logger.LogInformation("Message with message type {MessageType} was successfully handled.", messageType);
                 return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
 
-                //_logger.LogCritical(ex, "Message with message type {MessageType} has encountered an unknown exception.", messageType);
                 return false;
             }
         }
