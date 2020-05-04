@@ -30,7 +30,7 @@ jobs:
       
       # Pack the release build in the /release folder
       - name: Pack
-        run: dotnet pack -c Release -o release
+        run: dotnet pack -c Release -o release -suffix develop
       
       # Deliver NuGet package to GitHub
       - name: Deliver NuGet package to GitHub
