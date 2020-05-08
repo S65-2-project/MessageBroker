@@ -4,7 +4,6 @@ namespace MessageBroker
 {
     public interface IMessageQueuePublisher
     {
-        
         /// <summary>
         ///     Publish a message async to the message queue
         /// </summary>
