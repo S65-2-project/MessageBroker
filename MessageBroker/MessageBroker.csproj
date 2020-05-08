@@ -3,9 +3,10 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RepositoryUrl>https://github.com/S65-2-project/MessageBroker</RepositoryUrl>
-        <id>S652</id>
-        <Version>1.0.2</Version>
-        <IncludeSymbols>false</IncludeSymbols>
+        <PackageId>S652.MessageBroker</PackageId>
+        <Version>1.1.0</Version>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
