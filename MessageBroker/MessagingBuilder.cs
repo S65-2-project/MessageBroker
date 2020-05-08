@@ -20,9 +20,9 @@ namespace MessageBroker
         /// <summary>
         ///     Readonly variant of all the message handlers registered by the <see cref="MessagingBuilder"/>
         /// </summary>
-        public IReadOnlyDictionary<string, Type> MessageHandlers => new ReadOnlyDictionary<string, Type>(_messageHandlers);
+        internal IReadOnlyDictionary<string, Type> MessageHandlers => new ReadOnlyDictionary<string, Type>(_messageHandlers);
 
-        public MessagingBuilder(IServiceCollection services) => _services = services;
+        internal MessagingBuilder(IServiceCollection services) => _services = services;
 
         /// <summary>
         ///     Registers <typeparamref name="THandler"/> as the handler for a message of the given <paramref name="messageType"/>

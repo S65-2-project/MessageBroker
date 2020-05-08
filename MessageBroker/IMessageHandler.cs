@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 namespace MessageBroker
 {
+
     /// <summary>
     ///     The default message handler. Emits the received message data as <see cref="byte[]"/>
     /// </summary>
