@@ -3,8 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RepositoryUrl>https://github.com/S65-2-project/MessageBroker</RepositoryUrl>
-        <id>s652</id>
-        <Version>1.0.0</Version>
+        <id>S652</id>
+        <Version>1.0.2</Version>
         <IncludeSymbols>false</IncludeSymbols>
     </PropertyGroup>
 
