@@ -34,5 +34,5 @@ jobs:
       
       # Deliver NuGet package to GitHub
       - name: Deliver NuGet package to GitHub
-        run: dotnet nuget push ./release/*.ngpkg --source "github" --skip-duplicate --no-symbols true
+        run: dotnet nuget push ./release/MessageBroker.1.0.0.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
       
