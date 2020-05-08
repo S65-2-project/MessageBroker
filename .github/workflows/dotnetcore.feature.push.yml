@@ -32,6 +32,6 @@ jobs:
       - name: Pack
         run: dotnet pack -c Release -o release
       
-      # Deliver NuGet package to GitHub
+      # Deliver NuGet package to nuget.org
       - name: Deliver NuGet package to GitHub
-        run: dotnet nuget push ./release/MessageBroker.1.0.0.nupkg --source "nuget" --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+        run: dotnet nuget push ./release/*.nupkg --source "nuget" --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
