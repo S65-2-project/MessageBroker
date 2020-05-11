@@ -6,7 +6,7 @@ namespace MessageBroker
     public static class ConnectionBuilder
     {
         /// <summary>
-        ///     Dependency inject a message consumer to the service collection
+        /// Dependency inject a message consumer to the service collection
         /// </summary>
         /// <param name="services">The service collection</param>
         /// <param name="connectionUri">The uri connection string</param>
@@ -29,7 +29,7 @@ namespace MessageBroker
         }
 
         /// <summary>
-        ///     Dependency inject a message publisher to the service collection
+        /// Dependency inject a message publisher to the service collection
         /// </summary>
         /// <param name="services">The service collection</param>
         /// <param name="connectionUri">The uri connection string</param>

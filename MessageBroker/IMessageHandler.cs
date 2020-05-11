@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace MessageBroker
 {
     /// <summary>
-    ///     The default message handler. Emits the received message data as <see cref="byte[]"/>
+    /// The default message handler. Emits the received message data as <see cref="byte[]"/>
     /// </summary>
     public interface IMessageHandler
     {
@@ -12,13 +12,13 @@ namespace MessageBroker
     }
 
     /// <summary>
-    ///     Typed variant of <see cref="IMessageHandler"/>. This serializes the <see cref="byte[]"/> of <see cref="IMessageHandler.HandleMessageAsync(string, byte[])"/> into <typeparamref name="TMessage"/>
+    /// Typed variant of <see cref="IMessageHandler"/>. This serializes the <see cref="byte[]"/> of <see cref="IMessageHandler.HandleMessageAsync(string, byte[])"/> into <typeparamref name="TMessage"/>
     /// </summary>
     /// <typeparam name="TMessage"></typeparam>
     public interface IMessageHandler<in TMessage> : IMessageHandler where TMessage : class
     {
         /// <summary>
-        ///     Default interface implementation of <see cref="IMessageHandler.HandleMessageAsync(string, byte[])"/>
+        /// Default interface implementation of <see cref="IMessageHandler.HandleMessageAsync(string, byte[])"/>
         /// </summary>
         Task IMessageHandler.HandleMessageAsync(string messageType, byte[] obj)
         {
