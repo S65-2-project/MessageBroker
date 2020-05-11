@@ -26,8 +26,8 @@ namespace MessageBroker
             var factory = new ConnectionFactory
             {
                 Uri = new Uri(connectionUri),
-                AutomaticRecoveryEnabled =
-                    true // When the connection is lost, this will automatically reconnect us when it can get back up
+                // When the connection is lost, this will automatically reconnect us when it can get back up
+                AutomaticRecoveryEnabled = true
             };
             _connection = factory.CreateConnection();
 

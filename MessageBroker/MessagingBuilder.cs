@@ -8,24 +8,24 @@ namespace MessageBroker
     public class MessagingBuilder
     {
         /// <summary>
-        ///     The underlying service collection to register message handlers to
+        /// The underlying service collection to register message handlers to
         /// </summary>
         private readonly IServiceCollection _services;
 
         /// <summary>
-        ///     The message handlers that are registered
+        /// The message handlers that are registered
         /// </summary>
         private readonly Dictionary<string, Type> _messageHandlers = new Dictionary<string, Type>();
 
         /// <summary>
-        ///     Readonly variant of all the message handlers registered by the <see cref="MessagingBuilder"/>
+        /// Readonly variant of all the message handlers registered by the <see cref="MessagingBuilder"/>
         /// </summary>
         public IReadOnlyDictionary<string, Type> MessageHandlers => new ReadOnlyDictionary<string, Type>(_messageHandlers);
 
         public MessagingBuilder(IServiceCollection services) => _services = services;
 
         /// <summary>
-        ///     Registers <typeparamref name="THandler"/> as the handler for a message of the given <paramref name="messageType"/>
+        /// Registers <typeparamref name="THandler"/> as the handler for a message of the given <paramref name="messageType"/>
         /// </summary>
         /// <typeparam name="THandler">The handler implementing <see cref="IMessageHandler"/></typeparam>
         /// <param name="messageType">The message type that this handlers handles</param>
