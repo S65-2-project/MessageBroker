@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -14,20 +13,20 @@ namespace MessageBroker
             _connection = connection;
         }
 
-        public Task PublishMessageAsync<T>(string routingKey, string messageType, T value)
+        public Task PublishMessageAsync<T>(string exchange, string routingKey, string messageType, T value)
         {
             using var channel = _connection.CreateChannel();
             
-            var message = channel.CreateBasicProperties();
-            message.ContentType = "application/json";
-            message.DeliveryMode = 2;
+            var basicProperties = channel.CreateBasicProperties();
+            basicProperties.ContentType = "application/json";
+            basicProperties.DeliveryMode = 2;
             // Add a MessageType header, this part is crucial for our solution because it is our way of distinguishing messages
-            message.Headers = new Dictionary<string, object> { ["MessageType"] = messageType };
+            basicProperties.Headers = new Dictionary<string, object> { ["MessageType"] = messageType };
             
             var body = JsonSerializer.SerializeToUtf8Bytes(value);
             
             // Publish this without a routing key to the RabbitMQ broker
-            channel.BasicPublish("Lisk", routingKey, true,  message, body);
+            channel.BasicPublish(exchange, routingKey, true, basicProperties, body);
             
             return Task.CompletedTask;
         }
