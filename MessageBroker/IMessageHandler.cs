@@ -16,7 +16,7 @@ namespace MessageBroker
     ///     Typed variant of <see cref="IMessageHandler"/>. This serializes the <see cref="byte[]"/> of <see cref="IMessageHandler.HandleMessageAsync(string, byte[])"/> into <typeparamref name="TMessage"/>
     /// </summary>
     /// <typeparam name="TMessage"></typeparam>
-    public interface IMessageHandler<TMessage> : IMessageHandler where TMessage : class
+    public interface IMessageHandler<in TMessage> : IMessageHandler where TMessage : class
     {
         /// <summary>
         ///     Default interface implementation of <see cref="IMessageHandler.HandleMessageAsync(string, byte[])"/>
