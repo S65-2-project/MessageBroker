@@ -10,7 +10,7 @@ namespace MessageBroker
         /// </summary>
         private readonly IReadOnlyDictionary<string, Type> _messageHandlers;
 
-        internal MessageHandlerRepository(IReadOnlyDictionary<string, Type> messageHandlers)
+        public MessageHandlerRepository(IReadOnlyDictionary<string, Type> messageHandlers)
         { 
             _messageHandlers = messageHandlers;
         }
