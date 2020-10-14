@@ -1,0 +1,38 @@
+name: .NET Core push on develop branch
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    # The virtual machine that will be used on GitHub
+    runs-on: ubuntu-18.04
+    
+    # Run the steps in a Docker container on the virtual machine
+    container:
+      image: mcr.microsoft.com/dotnet/core/sdk:3.1.201-bionic
+    steps:
+      # Checkout Git repository
+      - uses: actions/checkout@v2
+
+      # Install the dependencies needed for the project
+      - name: Install dependencies
+        run: dotnet restore
+      
+      # Build the project
+      - name: Build
+        run: dotnet build
+      
+      # Test the project
+      - name: Test
+        run: dotnet test
+      
+      # Pack the release build in the /release folder
+      - name: Pack
+        run: dotnet pack -c Release -o release
+      
+      # Deliver NuGet package to nuget.org
+      - name: Deliver NuGet package to nuget.org
+        run: dotnet nuget push ./release/*.nupkg --source "nuget" --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+      
